@@ -1,0 +1,359 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="zh-CN">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>RustCam-Media · 登录</title>-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/element-plus@2.4.4/dist/index.css">-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">-->
+<!--  <style>-->
+<!--    :root {-->
+<!--      &#45;&#45;bg-base: #080b10;-->
+<!--      &#45;&#45;bg-surface: #0e1319;-->
+<!--      &#45;&#45;bg-elevated: #141b24;-->
+<!--      &#45;&#45;bg-card: #111720;-->
+<!--      &#45;&#45;border: rgba(255,255,255,0.06);-->
+<!--      &#45;&#45;border-bright: rgba(255,255,255,0.12);-->
+<!--      &#45;&#45;accent: #f0a500;-->
+<!--      &#45;&#45;accent-dim: rgba(240,165,0,0.15);-->
+<!--      &#45;&#45;accent-glow: rgba(240,165,0,0.4);-->
+<!--      &#45;&#45;accent-subtle: #c8871e;-->
+<!--      &#45;&#45;text-primary: #e8eaf0;-->
+<!--      &#45;&#45;text-secondary: #6b7280;-->
+<!--      &#45;&#45;text-muted: #3d4550;-->
+<!--      &#45;&#45;danger: #ef4444;-->
+<!--      &#45;&#45;success: #22c55e;-->
+<!--    }-->
+<!--    :root.light-theme {-->
+<!--      &#45;&#45;bg-base: #f0f2f5;-->
+<!--      &#45;&#45;bg-surface: #ffffff;-->
+<!--      &#45;&#45;bg-elevated: #f8f9fb;-->
+<!--      &#45;&#45;bg-card: #ffffff;-->
+<!--      &#45;&#45;border: rgba(0,0,0,0.07);-->
+<!--      &#45;&#45;border-bright: rgba(0,0,0,0.12);-->
+<!--      &#45;&#45;accent: #e08c00;-->
+<!--      &#45;&#45;accent-dim: rgba(224,140,0,0.1);-->
+<!--      &#45;&#45;accent-glow: rgba(224,140,0,0.3);-->
+<!--      &#45;&#45;accent-subtle: #c87a00;-->
+<!--      &#45;&#45;text-primary: #1a1d21;-->
+<!--      &#45;&#45;text-secondary: #5c6370;-->
+<!--      &#45;&#45;text-muted: #9ca3af;-->
+<!--      &#45;&#45;danger: #dc2626;-->
+<!--      &#45;&#45;success: #16a34a;-->
+<!--    }-->
+
+<!--    * { margin:0; padding:0; box-sizing:border-box; }-->
+
+<!--    body {-->
+<!--      font-family: 'Noto Sans SC', sans-serif;-->
+<!--      background: var(&#45;&#45;bg-base);-->
+<!--      color: var(&#45;&#45;text-primary);-->
+<!--      min-height: 100vh;-->
+<!--    }-->
+
+<!--    #app { min-height:100vh; display:flex; align-items:center; justify-content:center; }-->
+
+<!--    /* background grid */-->
+<!--    .bg-grid {-->
+<!--      position:fixed; inset:0; z-index:0; pointer-events:none;-->
+<!--      background-image:-->
+<!--        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),-->
+<!--        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);-->
+<!--      background-size:48px 48px;-->
+<!--    }-->
+<!--    .light-theme .bg-grid {-->
+<!--      background-image:-->
+<!--        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),-->
+<!--        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);-->
+<!--    }-->
+
+<!--    /* glow orb */-->
+<!--    .orb {-->
+<!--      position:fixed; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0;-->
+<!--    }-->
+<!--    .orb-1 { width:400px; height:400px; background:var(&#45;&#45;accent-dim); top:-100px; left:-100px; }-->
+<!--    .orb-2 { width:300px; height:300px; background:rgba(56,189,248,0.06); bottom:-80px; right:-80px; }-->
+
+<!--    /* login card */-->
+<!--    .login-card {-->
+<!--      position:relative; z-index:1;-->
+<!--      width:400px;-->
+<!--      background:var(&#45;&#45;bg-card);-->
+<!--      border:1px solid var(&#45;&#45;border-bright);-->
+<!--      border-radius:16px;-->
+<!--      padding:48px 40px 40px;-->
+<!--      box-shadow:0 24px 80px rgba(0,0,0,0.4);-->
+<!--    }-->
+
+<!--    .login-logo {-->
+<!--      display:flex; align-items:center; justify-content:center; gap:12px;-->
+<!--      margin-bottom:36px;-->
+<!--    }-->
+<!--    .login-logo .logo-mark {-->
+<!--      width:40px; height:40px;-->
+<!--      background:var(&#45;&#45;accent);-->
+<!--      clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);-->
+<!--      display:flex; align-items:center; justify-content:center;-->
+<!--      box-shadow:0 0 20px var(&#45;&#45;accent-glow);-->
+<!--      flex-shrink:0;-->
+<!--    }-->
+<!--    .login-logo .logo-mark svg { width:22px; height:22px; fill:var(&#45;&#45;bg-base); }-->
+<!--    .login-logo .logo-text {-->
+<!--      font-family:'JetBrains Mono', monospace;-->
+<!--      font-size:20px; font-weight:600; letter-spacing:0.5px;-->
+<!--      color:var(&#45;&#45;text-primary);-->
+<!--    }-->
+<!--    .login-logo .logo-text span { color:var(&#45;&#45;accent); }-->
+
+<!--    .login-title {-->
+<!--      text-align:center;-->
+<!--      font-size:13px;-->
+<!--      color:var(&#45;&#45;text-muted);-->
+<!--      margin-bottom:32px;-->
+<!--      letter-spacing:0.5px;-->
+<!--    }-->
+
+<!--    /* form */-->
+<!--    .login-form { display:flex; flex-direction:column; gap:18px; }-->
+
+<!--    .form-field { display:flex; flex-direction:column; gap:6px; }-->
+<!--    .form-field label {-->
+<!--      font-size:12px; font-weight:500; color:var(&#45;&#45;text-secondary);-->
+<!--      letter-spacing:0.3px;-->
+<!--    }-->
+
+<!--    .form-input-wrap { position:relative; }-->
+<!--    .form-input-wrap .prefix-icon {-->
+<!--      position:absolute; left:12px; top:50%; transform:translateY(-50%);-->
+<!--      color:var(&#45;&#45;text-muted); font-size:15px; z-index:1; pointer-events:none;-->
+<!--    }-->
+
+<!--    .el-input__wrapper {-->
+<!--      background:var(&#45;&#45;bg-elevated) !important;-->
+<!--      border:1px solid var(&#45;&#45;border) !important;-->
+<!--      box-shadow:none !important;-->
+<!--      border-radius:8px !important;-->
+<!--      padding-left:38px !important;-->
+<!--    }-->
+<!--    .el-input__wrapper:hover { border-color:var(&#45;&#45;border-bright) !important; }-->
+<!--    .el-input__wrapper.is-focus { border-color:var(&#45;&#45;accent) !important; box-shadow:0 0 0 3px var(&#45;&#45;accent-dim) !important; }-->
+<!--    .el-input__inner { color:var(&#45;&#45;text-primary) !important; font-size:13.5px; }-->
+<!--    .el-input__inner::placeholder { color:var(&#45;&#45;text-muted) !important; }-->
+
+<!--    /* password toggle */-->
+<!--    .pwd-toggle {-->
+<!--      position:absolute; right:10px; top:50%; transform:translateY(-50%);-->
+<!--      cursor:pointer; color:var(&#45;&#45;text-muted); font-size:15px;-->
+<!--      background:none; border:none; padding:4px;-->
+<!--      display:flex; align-items:center; justify-content:center;-->
+<!--    }-->
+<!--    .pwd-toggle:hover { color:var(&#45;&#45;accent); }-->
+
+<!--    /* remember + forgot */-->
+<!--    .form-row {-->
+<!--      display:flex; align-items:center; justify-content:space-between;-->
+<!--      font-size:12px;-->
+<!--    }-->
+<!--    .form-row label { color:var(&#45;&#45;text-secondary); cursor:pointer; display:flex; align-items:center; gap:6px; }-->
+<!--    .form-row .el-checkbox__label { color:var(&#45;&#45;text-secondary) !important; font-size:12px; }-->
+<!--    .form-row a { color:var(&#45;&#45;accent); text-decoration:none; }-->
+<!--    .form-row a:hover { text-decoration:underline; }-->
+
+<!--    /* submit button */-->
+<!--    .login-btn {-->
+<!--      width:100%; height:42px;-->
+<!--      background:var(&#45;&#45;accent) !important;-->
+<!--      border:none !important;-->
+<!--      color:var(&#45;&#45;bg-base) !important;-->
+<!--      font-size:14px; font-weight:600;-->
+<!--      border-radius:8px !important;-->
+<!--      letter-spacing:0.5px;-->
+<!--      transition:all 0.2s ease;-->
+<!--      cursor:pointer;-->
+<!--      margin-top:4px;-->
+<!--    }-->
+<!--    .login-btn:hover {-->
+<!--      background:var(&#45;&#45;accent-subtle) !important;-->
+<!--      box-shadow:0 4px 20px var(&#45;&#45;accent-glow);-->
+<!--      transform:translateY(-1px);-->
+<!--    }-->
+<!--    .login-btn:active { transform:translateY(0); }-->
+
+<!--    /* divider */-->
+<!--    .login-divider {-->
+<!--      display:flex; align-items:center; gap:12px;-->
+<!--      margin:8px 0;-->
+<!--    }-->
+<!--    .login-divider::before, .login-divider::after {-->
+<!--      content:''; flex:1; height:1px; background:var(&#45;&#45;border);-->
+<!--    }-->
+<!--    .login-divider span { font-size:11px; color:var(&#45;&#45;text-muted); white-space:nowrap; }-->
+
+<!--    /* footer */-->
+<!--    .login-footer {-->
+<!--      text-align:center; margin-top:28px;-->
+<!--      font-size:11px; color:var(&#45;&#45;text-muted);-->
+<!--    }-->
+
+<!--    /* theme toggle */-->
+<!--    .theme-btn {-->
+<!--      position:fixed; top:20px; right:20px; z-index:100;-->
+<!--      width:36px; height:36px;-->
+<!--      background:var(&#45;&#45;bg-card); border:1px solid var(&#45;&#45;border-bright);-->
+<!--      border-radius:8px; cursor:pointer;-->
+<!--      display:flex; align-items:center; justify-content:center;-->
+<!--      font-size:16px;-->
+<!--      transition:all 0.2s ease;-->
+<!--      color:var(&#45;&#45;text-secondary);-->
+<!--    }-->
+<!--    .theme-btn:hover {-->
+<!--      background:var(&#45;&#45;bg-elevated);-->
+<!--      border-color:var(&#45;&#45;accent);-->
+<!--      color:var(&#45;&#45;accent);-->
+<!--    }-->
+
+<!--    /* error msg */-->
+<!--    .error-msg {-->
+<!--      background:rgba(239,68,68,0.08);-->
+<!--      border:1px solid rgba(239,68,68,0.25);-->
+<!--      border-radius:6px;-->
+<!--      padding:10px 14px;-->
+<!--      font-size:12.5px;-->
+<!--      color:var(&#45;&#45;danger);-->
+<!--      display:flex; align-items:center; gap:8px;-->
+<!--    }-->
+<!--    .error-msg::before { content:'⚠'; }-->
+
+<!--    /* animations */-->
+<!--    @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }-->
+<!--    .login-card { animation:fadeIn 0.5s ease forwards; }-->
+
+<!--    /* EP overrides */-->
+<!--    .el-checkbox__input.is-checked .el-checkbox__inner {-->
+<!--      background:var(&#45;&#45;accent) !important; border-color:var(&#45;&#45;accent) !important;-->
+<!--    }-->
+<!--    .el-checkbox__input.is-checked + .el-checkbox__label { color:var(&#45;&#45;accent) !important; }-->
+<!--    .el-checkbox__inner { background:var(&#45;&#45;bg-elevated) !important; border-color:var(&#45;&#45;border-bright) !important; }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="app">-->
+
+<!--  <div class="bg-grid"></div>-->
+<!--  <div class="orb orb-1"></div>-->
+<!--  <div class="orb orb-2"></div>-->
+
+<!--  <button class="theme-btn" @click="toggleTheme" v-html="theme==='dark'?'☀':'☾'" :title="theme==='dark'?'切换亮色':'切换暗色'"></button>-->
+
+<!--  <div class="login-card">-->
+<!--    <div class="login-logo">-->
+<!--      <div class="logo-mark">-->
+<!--        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>-->
+<!--      </div>-->
+<!--      <div class="logo-text">Rust<span>Cam</span>-Media</div>-->
+<!--    </div>-->
+
+<!--    <div class="login-title">流媒体信令管理平台</div>-->
+
+<!--    <div class="error-msg" v-if="errorMsg" style="margin-bottom:16px;">{{ errorMsg }}</div>-->
+
+<!--    <form class="login-form" @submit.prevent="handleLogin">-->
+<!--      <div class="form-field">-->
+<!--        <label>用户名</label>-->
+<!--        <div class="form-input-wrap">-->
+<!--          <span class="prefix-icon">⊙</span>-->
+<!--          <el-input-->
+<!--            v-model="form.username"-->
+<!--            placeholder="请输入用户名"-->
+<!--            size="large"-->
+<!--            :prefix-icon="null"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="form-field">-->
+<!--        <label>密码</label>-->
+<!--        <div class="form-input-wrap">-->
+<!--          <span class="prefix-icon">◉</span>-->
+<!--          <el-input-->
+<!--            v-model="form.password"-->
+<!--            :type="showPwd ? 'text' : 'password'"-->
+<!--            placeholder="请输入密码"-->
+<!--            size="large"-->
+<!--          />-->
+<!--          <button type="button" class="pwd-toggle" @click="showPwd=!showPwd">-->
+<!--            {{ showPwd ? '◐' : '◑' }}-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="form-row">-->
+<!--        <label>-->
+<!--          <el-checkbox v-model="remember">记住我</el-checkbox>-->
+<!--        </label>-->
+<!--        <a href="#">忘记密码？</a>-->
+<!--      </div>-->
+
+<!--      <button type="submit" class="login-btn" :disabled="loading">-->
+<!--        {{ loading ? '登录中...' : '登录' }}-->
+<!--      </button>-->
+
+<!--      <div class="login-divider"><span>默认账号 admin / admin123</span></div>-->
+<!--    </form>-->
+
+<!--    <div class="login-footer">-->
+<!--      RustCam-Media · v0.1.0-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+<!--<script src="https://unpkg.com/vue@3.4.15/dist/vue.global.prod.js"></script>-->
+<!--<script src="https://unpkg.com/element-plus@2.4.4/dist/index.full.js"></script>-->
+<!--<script>-->
+<!--  const { createApp, ref } = Vue;-->
+<!--  const { ElMessage } = ElementPlus;-->
+
+<!--  const app = createApp({-->
+<!--    setup() {-->
+<!--      const theme = ref(localStorage.getItem('theme') || 'dark');-->
+<!--      const applyTheme = (t) => {-->
+<!--        t === 'light' ? document.documentElement.classList.add('light-theme') : document.documentElement.classList.remove('light-theme');-->
+<!--        localStorage.setItem('theme', t);-->
+<!--      };-->
+<!--      applyTheme(theme.value);-->
+
+<!--      const toggleTheme = () => {-->
+<!--        theme.value = theme.value === 'dark' ? 'light' : 'dark';-->
+<!--        applyTheme(theme.value);-->
+<!--      };-->
+
+<!--      const form = ref({ username: '', password: '' });-->
+<!--      const showPwd = ref(false);-->
+<!--      const remember = ref(false);-->
+<!--      const loading = ref(false);-->
+<!--      const errorMsg = ref('');-->
+
+<!--      const handleLogin = async () => {-->
+<!--        errorMsg.value = '';-->
+<!--        if (!form.value.username) { errorMsg.value = '请输入用户名'; return; }-->
+<!--        if (!form.value.password) { errorMsg.value = '请输入密码'; return; }-->
+<!--        loading.value = true;-->
+<!--        await new Promise(r => setTimeout(r, 1200));-->
+<!--        if (form.value.username === 'admin' && form.value.password === 'admin123') {-->
+<!--          ElMessage({ message: '登录成功，正在跳转...', type: 'success', duration: 1500 });-->
+<!--          setTimeout(() => { window.location.href = 'index.html'; }, 800);-->
+<!--        } else {-->
+<!--          errorMsg.value = '用户名或密码错误';-->
+<!--          loading.value = false;-->
+<!--        }-->
+<!--      };-->
+
+<!--      return { theme, toggleTheme, form, showPwd, remember, loading, errorMsg, handleLogin };-->
+<!--    }-->
+<!--  });-->
+<!--  app.use(ElementPlus);-->
+<!--  app.mount('#app');-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

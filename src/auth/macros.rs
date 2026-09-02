@@ -1,0 +1,1 @@
+pub use crate::auth::middleware::jwt_auth_layer as require_auth;

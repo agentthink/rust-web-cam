@@ -1,0 +1,62 @@
+// ============================================================
+//  RustCam-Media — Animations
+// ============================================================
+
+@keyframes pulse-online {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-4px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--color-accent-glow); }
+  50%       { box-shadow: 0 0 12px var(--color-accent-glow), 0 0 20px var(--color-accent-dim); }
+}
+
+.animate-spin        { animation: spin 1s linear infinite; }
+.animate-fade-in     { animation: fade-in 0.2s ease-out; }
+.animate-slide-up    { animation: slide-up 0.2s ease-out; }
+.animate-slide-down  { animation: slide-down 0.2s ease-out; }
+.animate-page-enter  { animation: page-enter 0.25s ease-out; }
+.animate-glow-pulse  { animation: glow-pulse 2s ease-in-out infinite; }
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-base) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-base);
+}

@@ -1,0 +1,80 @@
+[package]
+name = "rustcam-media"
+version = "0.1.0"
+edition = "2021"
+
+[server]
+host = "0.0.0.0"
+port = 8080
+tls_enabled = false
+
+[database]
+url = "postgres://postgres:123456@127.0.0.1:5435/rustcam?options=-c%20client_encoding=UTF8"
+max_connections = 10
+debug_sql = true
+
+[redis]
+# url = "redis://:123456@127.0.0.1:6379/"
+url = "redis://127.0.0.1:6379/"
+pool_size = 10
+
+[[media_servers.servers]]
+name = "zlmediakit-1"
+url = "http://127.0.0.1:80"
+api_key = "hX56LNGxVJrdvDd0N8Q7fRlL8VGreVcz"
+server_type = "zlmediakit"
+weight = 100
+enabled = true
+server_tag = "default"
+[media_servers.servers.protocol_ports]
+rtsp = 445
+rtmp = 1935
+hls = 8083
+http = 8080
+https = 8443
+webrtc = 8000
+rtp_tcp = 6000
+http_flv = 8088
+ws_flv = 8089
+
+
+[cluster]
+strategy = "round_robin"
+health_check_interval_secs = 30
+max_session_per_server = 1000
+
+[session]
+expiration_secs = 300
+max_per_user = 10
+
+[onvif]
+discovery_enabled = false
+scopes = ["onvif://www.onvif.org/Profile/Streaming", "onvif://www.onvif.org/Profile/PTZ", "onvif://www.onvif.org/Profile/Events"]
+
+[rtsp_auth]
+enabled = true
+realm = "RustCam"
+default_username = "admin"
+default_password = "admin"
+
+[signaling_server]
+server_gb_id = "31011500001000000001"
+server_gb_domain = "3101150000"
+bind_ip = "0.0.0.0"
+tcp_signaling_port = 5060
+udp_signaling_port = 5061
+tcp_audio_port_start = 15000
+tcp_audio_port_end = 15100
+tcp_audio_idle_timeout_secs = 30
+tcp_audio_max_servers = 10
+
+[jwt]
+secret = "change-me-in-production"
+access_token_expire_minutes = 15
+refresh_token_expire_days = 7
+
+[log]
+level = "debug"
+sql = false
+http = false
+media_server = false

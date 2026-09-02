@@ -1,0 +1,21 @@
+<mapper>
+<select id="group_select_all">
+SELECT g.id, g.name, g.parent_id, g.sort_order, g.created_at,
+       (SELECT count(*) FROM devices d WHERE d.group_id = g.id) as device_count
+FROM device_groups g ORDER BY g.sort_order, g.name
+</select>
+
+<insert id="group_insert">
+INSERT INTO device_groups (name, parent_id, sort_order, created_at)
+VALUES (#{name}, #{parent_id}, #{sort_order}, NOW())
+</insert>
+
+<update id="group_update">
+UPDATE device_groups SET name = #{name}, parent_id = #{parent_id}, sort_order = #{sort_order}
+WHERE id = #{id}
+</update>
+
+<delete id="group_delete_by_id">
+DELETE FROM device_groups WHERE id = #{id}
+</delete>
+</mapper>

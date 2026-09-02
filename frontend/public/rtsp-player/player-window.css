@@ -1,0 +1,378 @@
+/* ========== PlayerWindow 主容器 ========== */
+.player-window {
+    width: var(--pw-width, 800px);
+    height: var(--pw-height, 600px);
+    min-width: 320px;
+    min-height: 240px;
+    background: #1a1a2e;
+    border: 1px solid #2a2a3e;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.player-window .pw-window-titlebar {
+    background: #16213e;
+    padding: 8px 12px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #0f3460;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.player-window .pw-window-title-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-window .pw-window-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #888;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.player-window .pw-window-status-dot.pw-connected {
+    background: #00ff88;
+    box-shadow: 0 0 6px #00ff88;
+}
+
+.player-window .pw-window-status-dot.pw-disconnected {
+    background: #ff4444;
+    box-shadow: 0 0 6px #ff4444;
+}
+
+.player-window .pw-window-status-dot.pw-connecting {
+    background: #ffaa00;
+    animation: pw-pulse 1.5s infinite;
+}
+
+.player-window .pw-window-title-text {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.player-window .pw-window-close-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.player-window .pw-window-close-btn:hover {
+    color: #ff6666;
+}
+
+/* ========== Canvas 容器 ========== */
+.player-window .pw-canvas-container {
+    flex: 1;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+}
+
+.player-window .pw-canvas-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ========== 布局网格覆盖层 ========== */
+.player-window .pw-layout-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 分割线 */
+.player-window .pw-grid-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    pointer-events: none;
+    transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+/* 选中状态的分割线 */
+.player-window .pw-grid-line.pw-selected {
+    background: rgba(0, 170, 255, 0.8);
+    box-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+}
+
+/* ========== LayoutItem 覆盖层（仅用于交互） ========== */
+.player-window .pw-layout-item-overlay {
+    position: absolute;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    pointer-events: all;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.player-window .pw-layout-item-overlay.pw-drag-over {
+    box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.15);
+}
+
+.player-window .pw-layout-item-overlay.pw-drag-invalid {
+    box-shadow: inset 0 0 30px rgba(255, 68, 68, 0.15);
+}
+
+/* 状态指示器 */
+.player-window .pw-layout-item-status {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+    z-index: 25;
+}
+
+.player-window .pw-layout-item-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.player-window .pw-layout-item-status-dot.pw-idle { background: #666; }
+.player-window .pw-layout-item-status-dot.pw-playing {
+    background: #00ff88;
+    box-shadow: 0 0 6px #00ff88;
+    animation: pw-pulse-green 2s infinite;
+}
+.player-window .pw-layout-item-status-dot.pw-connecting {
+    background: #ffaa00;
+    animation: pw-pulse 1.5s infinite;
+}
+.player-window .pw-layout-item-status-dot.pw-stopped { background: #ff6666; }
+.player-window .pw-layout-item-status-dot.pw-error {
+    background: #ff0000;
+    animation: pw-blink 0.5s infinite;
+}
+
+.player-window .pw-layout-item-status-text {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 10px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+/* 空闲状态 */
+.player-window .pw-layout-item-idle-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+    pointer-events: none;
+    text-align: center;
+}
+
+/* 播放器名称 */
+.player-window .pw-layout-item-player-name {
+    position: absolute;
+    bottom: 38px;
+    left: 6px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
+    pointer-events: none;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    max-width: calc(100% - 12px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ========== 底部功能条 ========== */
+.player-window .pw-layout-item-toolbar {
+ position: absolute;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+    height: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.3), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;  /* ✅ 改这里 */
+    gap: 3px;
+    padding: 0 6px;
+    padding-left: 4px;           /* ✅ 加这个 */
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.player-window .pw-layout-item-overlay:hover .pw-layout-item-toolbar {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* 功能条按钮 */
+.player-window .pw-tb-btn {
+    width: 26px;
+    height: 22px;
+    border: none;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s;
+    position: relative;
+    backdrop-filter: blur(4px);
+}
+
+.player-window .pw-tb-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.player-window .pw-tb-btn.pw-danger:hover {
+    background: rgba(255, 68, 68, 0.5);
+    color: #ff8888;
+}
+
+/* 功能条 Tooltip */
+.player-window .pw-tb-btn .pw-tb-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #eee;
+    padding: 3px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 31;
+}
+
+.player-window .pw-tb-btn .pw-tb-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.player-window .pw-tb-btn:hover .pw-tb-tooltip {
+    opacity: 1;
+}
+
+/* ========== 右键菜单（全局，加前缀防冲突） ========== */
+.pw-context-menu {
+    position: fixed;
+    z-index: 10000;
+    background: #1a1a2e;
+    border: 1px solid #2a2a3e;
+    border-radius: 6px;
+    padding: 4px 0;
+    min-width: 150px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.pw-context-menu.pw-visible {
+    display: block;
+}
+
+.pw-context-menu .pw-menu-item {
+    padding: 7px 14px;
+    color: #e0e0e0;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.15s;
+}
+
+.pw-context-menu .pw-menu-item:hover {
+    background: #16213e;
+}
+
+.pw-context-menu .pw-menu-item.pw-disabled {
+    color: #555;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.pw-context-menu .pw-menu-separator {
+    height: 1px;
+    background: #2a2a3e;
+    margin: 4px 0;
+}
+
+.pw-context-menu .pw-menu-item-icon {
+    width: 14px;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* ========== 拖放提示 ========== */
+.player-window .pw-drop-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff88;
+    font-size: 13px;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    display: none;
+}
+
+.player-window .pw-layout-item-overlay.pw-drag-over .pw-drop-hint {
+    display: block;
+}
+
+/* ========== 动画 ========== */
+@keyframes pw-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes pw-pulse-green {
+    0%, 100% { opacity: 1; box-shadow: 0 0 4px #00ff88; }
+    50% { opacity: 0.6; box-shadow: 0 0 10px #00ff88; }
+}
+
+@keyframes pw-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}

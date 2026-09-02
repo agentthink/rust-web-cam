@@ -1,0 +1,43 @@
+{
+  "name": "rtsp-viewer",
+  "version": "1.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "unpkg": "dist/umd/rtsp-viewer.min.js",
+  "jsdelivr": "dist/umd/rtsp-viewer.min.js",
+  "browser": "dist/umd/rtsp-viewer.js",
+  "types": "types/index.d.ts",
+  "private": true,
+  "author": "ouyang",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./types/index.d.ts",
+      "browser": "./dist/umd/rtsp-viewer.js",
+      "default": "./dist/umd/rtsp-viewer.js"
+    },
+    "./umd": "./dist/umd/rtsp-viewer.js",
+    "./cjs": "./dist/cjs/index.js",
+    "./esm": "./dist/esm/index.js",
+    "./system": "./dist/system/rtsp-viewer.system.js",
+    "./iife": "./dist/iife/rtsp-viewer.iife.js",
+    "./worker": "./dist/umd/rtsp-viewer.worker.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "rtsp",
+    "viewer",
+    "websocket",
+    "video",
+    "umd",
+    "commonjs",
+    "esm"
+  ]
+}

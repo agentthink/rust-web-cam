@@ -1,0 +1,90 @@
+<mapper>
+<select id="session_select_all">
+SELECT id, session_type, device_tag, channel_tag, user_id, state, client_ip, client_type, media_server_tag, protocol, created_at, last_activity, expires_at, bytes_sent, bytes_received
+FROM sessions
+ORDER BY created_at DESC
+</select>
+
+<select id="session_select_by_id">
+SELECT id, session_type, device_tag, channel_tag, user_id, state, client_ip, client_type, media_server_tag, protocol, created_at, last_activity, expires_at, bytes_sent, bytes_received
+FROM sessions
+WHERE id = #{id}
+</select>
+
+<select id="session_select_active_paginated">
+SELECT id, session_type, device_tag, channel_tag, user_id, state, client_ip, client_type, media_server_tag, protocol, created_at, last_activity, expires_at, bytes_sent, bytes_received
+FROM sessions
+WHERE state IN ('active', 'initializing')
+ORDER BY created_at DESC
+LIMIT #{limit} OFFSET #{offset}
+</select>
+
+<select id="session_count_active">
+SELECT COUNT(*)
+FROM sessions
+WHERE state IN ('active', 'initializing')
+</select>
+
+<insert id="session_insert">
+INSERT INTO sessions
+<trim prefix="(" suffix=")" prefixOverrides="">
+<if test="session_type != null">session_type</if>
+<if test="device_tag != null">, device_tag</if>
+<if test="channel_tag != null">, channel_tag</if>
+<if test="user_id != null">, user_id</if>
+<if test="state != null">, state</if>
+<if test="client_ip != null">, client_ip</if>
+<if test="client_type != null">, client_type</if>
+<if test="media_server_tag != null">, media_server_tag</if>
+<if test="protocol != null">, protocol</if>
+<if test="created_at != null">, created_at</if>
+<if test="last_activity != null">, last_activity</if>
+<if test="expires_at != null">, expires_at</if>
+<if test="bytes_sent != null">, bytes_sent</if>
+<if test="bytes_received != null">, bytes_received</if>
+</trim>
+VALUES
+<trim prefix="(" suffix=")" prefixOverrides="">
+<if test="session_type != null">#{session_type}</if>
+<if test="device_tag != null">, #{device_tag}</if>
+<if test="channel_tag != null">, #{channel_tag}</if>
+<if test="user_id != null">, #{user_id}</if>
+<if test="state != null">, #{state}</if>
+<if test="client_ip != null">, #{client_ip}</if>
+<if test="client_type != null">, #{client_type}</if>
+<if test="media_server_tag != null">, #{media_server_tag}</if>
+<if test="protocol != null">, #{protocol}</if>
+<if test="created_at != null">, #{created_at}</if>
+<if test="last_activity != null">, #{last_activity}</if>
+<if test="expires_at != null">, #{expires_at}</if>
+<if test="bytes_sent != null">, #{bytes_sent}</if>
+<if test="bytes_received != null">, #{bytes_received}</if>
+</trim>
+RETURNING id
+</insert>
+
+<update id="session_update">
+UPDATE sessions
+<set>
+<if test="session_type != null">session_type = #{session_type},</if>
+<if test="device_tag != null">device_tag = #{device_tag},</if>
+<if test="channel_tag != null">channel_tag = #{channel_tag},</if>
+<if test="user_id != null">user_id = #{user_id},</if>
+<if test="state != null">state = #{state},</if>
+<if test="client_ip != null">client_ip = #{client_ip},</if>
+<if test="client_type != null">client_type = #{client_type},</if>
+<if test="media_server_tag != null">media_server_tag = #{media_server_tag},</if>
+<if test="protocol != null">protocol = #{protocol},</if>
+<if test="created_at != null">created_at = #{created_at},</if>
+<if test="last_activity != null">last_activity = #{last_activity},</if>
+<if test="expires_at != null">expires_at = #{expires_at},</if>
+<if test="bytes_sent != null">bytes_sent = #{bytes_sent},</if>
+<if test="bytes_received != null">bytes_received = #{bytes_received},</if>
+</set>
+WHERE id = #{id}
+</update>
+
+<delete id="session_delete_by_id">
+DELETE FROM sessions WHERE id = #{id}
+</delete>
+</mapper>

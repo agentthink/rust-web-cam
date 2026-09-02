@@ -1,0 +1,176 @@
+<mapper>
+<select id="device_select_by_id">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices WHERE id = #{id}
+</select>
+
+<select id="device_select_all">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices ORDER BY created_at DESC
+</select>
+
+<select id="device_select_all_paginated">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices ORDER BY created_at DESC
+LIMIT #{limit} OFFSET #{offset}
+</select>
+
+<select id="device_count_top_level">
+SELECT COUNT(*) FROM devices
+</select>
+
+<select id="device_select_online_paginated">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices WHERE status = 'online'
+ORDER BY created_at DESC
+LIMIT #{limit} OFFSET #{offset}
+</select>
+
+<select id="device_count_online">
+SELECT COUNT(*) FROM devices WHERE status = 'online'
+</select>
+
+<select id="device_select_by_device_tag">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices WHERE device_tag = #{device_tag}
+</select>
+
+<select id="device_select_by_parent_device_tag">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices WHERE parent_device_tag = #{parent_device_tag} ORDER BY created_at
+</select>
+
+<select id="device_select_by_status">
+SELECT id, name, protocol, status, host, port, rtsp_url, device_tag, parent_device_tag, is_public, created_at, device_password, playback_username, playback_password, media_server_tag, push_urls, pull_urls, region_code, updated_at, ssrc, gb_username, gb_password, extended, group_id, app, device_type, device_type_code, channel_count
+FROM devices WHERE status = #{status} ORDER BY created_at DESC
+</select>
+
+<insert id="device_insert">
+INSERT INTO devices
+<trim prefix="(" suffix=")" prefixOverrides=",">
+<if test="name != null">name</if>
+<if test="protocol != null">, protocol</if>
+<if test="status != null">, status</if>
+<if test="host != null">, host</if>
+<if test="port != null">, port</if>
+<if test="rtsp_url != null">, rtsp_url</if>
+<if test="device_tag != null">, device_tag</if>
+<if test="parent_device_tag != null">, parent_device_tag</if>
+<if test="is_public != null">, is_public</if>
+<if test="created_at != null">, created_at</if>
+<if test="device_password != null">, device_password</if>
+<if test="playback_username != null">, playback_username</if>
+<if test="playback_password != null">, playback_password</if>
+<if test="media_server_tag != null">, media_server_tag</if>
+<if test="push_urls != null">, push_urls</if>
+<if test="pull_urls != null">, pull_urls</if>
+<if test="region_code != null">, region_code</if>
+<if test="updated_at != null">, updated_at</if>
+<if test="ssrc != null">, ssrc</if>
+<if test="extended != null">, extended</if>
+<if test="group_id != null">, group_id</if>
+<if test="app != null">, app</if>
+<if test="device_type != null">, device_type</if>
+<if test="device_type_code != null">, device_type_code</if>
+</trim>
+VALUES
+<trim prefix="(" suffix=")" prefixOverrides=",">
+<if test="name != null">#{name}</if>
+<if test="protocol != null">, #{protocol}</if>
+<if test="status != null">, #{status}</if>
+<if test="host != null">, #{host}</if>
+<if test="port != null">, #{port}</if>
+<if test="rtsp_url != null">, #{rtsp_url}</if>
+<if test="device_tag != null">, #{device_tag}</if>
+<if test="parent_device_tag != null">, #{parent_device_tag}</if>
+<if test="is_public != null">, #{is_public}</if>
+<if test="created_at != null">, #{created_at}</if>
+<if test="device_password != null">, #{device_password}</if>
+<if test="playback_username != null">, #{playback_username}</if>
+<if test="playback_password != null">, #{playback_password}</if>
+<if test="media_server_tag != null">, #{media_server_tag}</if>
+<if test="push_urls != null">, #{push_urls}</if>
+<if test="pull_urls != null">, #{pull_urls}</if>
+<if test="region_code != null">, #{region_code}</if>
+<if test="updated_at != null">, #{updated_at}</if>
+<if test="ssrc != null">, #{ssrc}</if>
+<if test="extended != null">, #{extended}</if>
+<if test="group_id != null">, #{group_id}</if>
+<if test="app != null">, #{app}</if>
+<if test="device_type != null">, #{device_type}</if>
+<if test="device_type_code != null">, #{device_type_code}</if>
+</trim>
+</insert>
+
+<update id="device_update">
+UPDATE devices
+<set>
+<if test="name != null">name = #{name},</if>
+<if test="protocol != null">protocol = #{protocol},</if>
+<if test="status != null">status = #{status},</if>
+<if test="host != null">host = #{host},</if>
+<if test="port != null">port = #{port},</if>
+<if test="rtsp_url != null">rtsp_url = #{rtsp_url},</if>
+<if test="device_tag != null">device_tag = #{device_tag},</if>
+<if test="parent_device_tag != null">parent_device_tag = #{parent_device_tag},</if>
+<if test="is_public != null">is_public = #{is_public},</if>
+<if test="device_password != null">device_password = #{device_password},</if>
+<if test="playback_username != null">playback_username = #{playback_username},</if>
+<if test="playback_password != null">playback_password = #{playback_password},</if>
+<if test="media_server_tag != null">media_server_tag = #{media_server_tag},</if>
+<if test="push_urls != null">push_urls = #{push_urls},</if>
+<if test="pull_urls != null">pull_urls = #{pull_urls},</if>
+<if test="region_code != null">region_code = #{region_code},</if>
+<if test="updated_at != null">updated_at = #{updated_at},</if>
+<if test="ssrc != null">ssrc = #{ssrc},</if>
+<if test="gb_username != null">gb_username = #{gb_username},</if>
+<if test="gb_password != null">gb_password = #{gb_password},</if>
+<if test="extended != null">extended = #{extended},</if>
+<if test="group_id != null">group_id = #{group_id},</if>
+<if test="app != null">app = #{app},</if>
+<if test="device_type != null">device_type = #{device_type},</if>
+<if test="device_type_code != null">device_type_code = #{device_type_code},</if>
+</set>
+WHERE id = #{id}
+</update>
+
+<delete id="device_delete_by_id">
+DELETE FROM devices WHERE id = #{id}
+</delete>
+
+<delete id="device_delete_by_device_tag">
+DELETE FROM devices WHERE device_tag = #{device_tag}
+</delete>
+
+<update id="device_update_by_device_tag">
+UPDATE devices
+<set>
+<if test="name != null">name = #{name},</if>
+<if test="protocol != null">protocol = #{protocol},</if>
+<if test="status != null">status = #{status},</if>
+<if test="host != null">host = #{host},</if>
+<if test="port != null">port = #{port},</if>
+<if test="rtsp_url != null">rtsp_url = #{rtsp_url},</if>
+<if test="device_tag != null">device_tag = #{device_tag},</if>
+<if test="parent_device_tag != null">parent_device_tag = #{parent_device_tag},</if>
+<if test="is_public != null">is_public = #{is_public},</if>
+<if test="device_password != null">device_password = #{device_password},</if>
+<if test="playback_username != null">playback_username = #{playback_username},</if>
+<if test="playback_password != null">playback_password = #{playback_password},</if>
+<if test="media_server_tag != null">media_server_tag = #{media_server_tag},</if>
+<if test="push_urls != null">push_urls = #{push_urls},</if>
+<if test="pull_urls != null">pull_urls = #{pull_urls},</if>
+<if test="region_code != null">region_code = #{region_code},</if>
+<if test="updated_at != null">updated_at = #{updated_at},</if>
+<if test="ssrc != null">ssrc = #{ssrc},</if>
+<if test="gb_username != null">gb_username = #{gb_username},</if>
+<if test="gb_password != null">gb_password = #{gb_password},</if>
+<if test="extended != null">extended = #{extended},</if>
+<if test="group_id != null">group_id = #{group_id},</if>
+<if test="app != null">app = #{app},</if>
+<if test="device_type != null">device_type = #{device_type},</if>
+<if test="device_type_code != null">device_type_code = #{device_type_code},</if>
+</set>
+WHERE device_tag = #{device_tag_query}
+</update>
+</mapper>

@@ -1,0 +1,311 @@
+// ============================================================
+//  RustCam-Media — Design Tokens
+//  Command Center Industrial Design
+// ============================================================
+
+:root {
+  // ── Accent (电光青) ──────────────────────────────────────
+  --color-accent:        #00D4FF;
+  --color-accent-dim:    rgba(0, 212, 255, 0.12);
+  --color-accent-glow:   rgba(0, 212, 255, 0.35);
+  --color-accent-subtle: #0099b8;
+
+  // ── Semantic ──────────────────────────────────────────────
+  --color-success:  #22c55e;
+  --color-warning:  #f59e0b;
+  --color-danger:   #ef4444;
+  --color-info:     #3b82f6;
+
+  // ── Element Plus color alias (used in inline styles) ────
+  --el-color-primary:         var(--color-accent);
+  --el-color-success:         #22c55e;
+  --el-color-warning:         #f59e0b;
+  --el-color-danger:          #ef4444;
+  --el-color-info:            #3b82f6;
+  --el-color-primary-light-3: rgba(0, 212, 255, 0.24);
+  --el-color-primary-light-5: rgba(0, 212, 255, 0.18);
+  --el-color-primary-light-7: rgba(0, 212, 255, 0.12);
+  --el-color-primary-light-8: rgba(0, 212, 255, 0.08);
+  --el-color-primary-light-9: rgba(0, 212, 255, 0.04);
+  --el-color-primary-dark-2:   rgba(0, 212, 255, 0.80);
+
+  // ── Element Plus surface/border alias ───────────────────
+  --el-bg-color:           var(--bg-base);
+  --el-bg-color-overlay:   var(--bg-surface);
+  --el-bg-color-page:      var(--bg-base);
+  --el-text-color-primary:   var(--text-primary);
+  --el-text-color-regular:  var(--text-secondary);
+  --el-text-color-secondary: var(--text-muted);
+  --el-text-color-placeholder: var(--text-muted);
+  --el-text-color-disabled:  var(--text-muted);
+  --el-border-color:         var(--border);
+  --el-border-color-light:   var(--border);
+  --el-border-color-lighter:  var(--border-subtle);
+  --el-border-color-extra-light: var(--border-subtle);
+  --el-border-color-dark:   var(--border-bright);
+  --el-fill-color:          var(--bg-base);
+  --el-fill-color-light:    var(--color-accent-dim);
+  --el-fill-color-lighter:  var(--border-subtle);
+  --el-fill-color-blank:    var(--bg-surface);
+  --el-mask-color:          rgba(0, 0, 0, 0.5);
+  --el-overlay-color:       rgba(0, 0, 0, 0.3);
+  --el-overlay-color-light:  rgba(0, 0, 0, 0.1);
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.05);
+  --el-overlay-color-dark:  rgba(0, 0, 0, 0.7);
+  --el-box-shadow:          var(--shadow-base);
+  --el-box-shadow-light:    var(--shadow-sm);
+  --el-box-shadow-lighter:  var(--shadow-sm);
+  --el-box-shadow-dark:     var(--shadow-md);
+
+  // ── Text ─────────────────────────────────────────────────
+  --text-primary:   #303133;
+  --text-secondary: #606266;
+  --text-muted:     #909399;
+
+  // ── Borders ──────────────────────────────────────────────
+  --border:        #dcdfe6;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-accent: var(--color-accent);
+  --border-bright: #c0c4cc;
+
+  // ── Protocol colors ────────────────────────────────────────
+  --protocol-rtsp:     #8b5cf6;
+  --protocol-rtmp:     #f97316;
+  --protocol-gb28181:  #06b6d4;
+  --protocol-onvif:   #22c55e;
+  --protocol-webrtc:   #00D4FF;
+
+  // ── Backgrounds ──────────────────────────────────────────
+  --bg-base:     #f5f7fa;
+  --bg-surface:  #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-card:     #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.06);
+
+  // ── Status ───────────────────────────────────────────────
+  --status-online:  var(--color-success);
+  --status-offline: #909399;
+  --status-warning: var(--color-warning);
+  --status-error:   var(--color-danger);
+
+  // ── Accent aliases (protocol tags) ──────────────────────
+  --accent-cyan:   #06b6d4;
+  --accent-red:    #ef4444;
+  --accent-purple: #8b5cf6;
+  --accent-yellow: #eab308;
+
+  // ── PTZ ─────────────────────────────────────────────────
+  --ptz-accent:      var(--color-accent);
+  --ptz-accent-dim:  var(--color-accent-dim);
+  --ptz-accent-glow: var(--color-accent-glow);
+  --ptz-surface:     #f0ede8;
+  --ptz-border:      #d8d0c8;
+  --ptz-btn-bg:      #f5f2ee;
+  --ptz-btn-border:  #d8d0c8;
+  --ptz-text:        #5a5040;
+  --ptz-text-dim:    #9a9080;
+  --ptz-divider:     #e0dbd5;
+
+  // ── Video ───────────────────────────────────────────────
+  --video-bg: #f0eeea;
+
+  // ── Shadows ─────────────────────────────────────────────
+  --shadow-sm:     0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base:   0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md:     0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg:     0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-accent: 0 0 0 3px var(--color-accent-glow);
+
+  // ── Skeleton ────────────────────────────────────────────
+  --el-skeleton-color: rgba(0, 0, 0, 0.06);
+  --el-skeleton-to-color: rgba(0, 0, 0, 0.03);
+
+  // ── Typography ─────────────────────────────────────────
+  --font-sans: 'DM Sans', 'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-cn:   'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-md:   1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  // ── Border radius (2px industrial) ───────────────────────
+  --radius-sm:  0.125rem;  //  2px
+  --radius-base: 0.125rem;  //  2px
+  --radius-md:  0.125rem;  //  2px
+  --radius-lg:  0.125rem;  //  2px
+  --radius-xl:  0.25rem;   //  4px (largest — modals, dropdowns)
+
+  // ── Spacing ──────────────────────────────────────────────
+  --space-1:  0.25rem;  //  4px
+  --space-2:  0.5rem;   //  8px
+  --space-3:  0.75rem;  // 12px
+  --space-4:  1rem;     // 16px
+  --space-5:  1.25rem; // 20px
+  --space-6:  1.5rem;   // 24px
+  --space-8:  2rem;     // 32px
+  --space-10: 2.5rem;   // 40px
+  --space-12: 3rem;     // 48px
+
+  // ── Layout ──────────────────────────────────────────────
+  --sidebar-expanded:  220px;
+  --sidebar-collapsed:  64px;
+}
+
+// ── Dark Theme ─────────────────────────────────────────────────
+html.dark {
+  // ── Accent ──────────────────────────────────────────────
+  --color-accent:        #00D4FF;
+  --color-accent-dim:    rgba(0, 212, 255, 0.10);
+  --color-accent-glow:   rgba(0, 212, 255, 0.30);
+  --color-accent-subtle: #00b8df;
+
+  // ── Semantic ──────────────────────────────────────────────
+  --color-success:  #22c55e;
+  --color-warning:  #f59e0b;
+  --color-danger:   #ef4444;
+  --color-info:     #3b82f6;
+
+  // ── Element Plus color alias (used in inline styles) ────
+  --el-color-primary:         var(--color-accent);
+  --el-color-success:         #22c55e;
+  --el-color-warning:         #f59e0b;
+  --el-color-danger:          #ef4444;
+  --el-color-info:            #3b82f6;
+  --el-color-primary-light-3: rgba(0, 212, 255, 0.16);
+  --el-color-primary-light-5: rgba(0, 212, 255, 0.10);
+  --el-color-primary-light-7: rgba(0, 212, 255, 0.06);
+  --el-color-primary-light-8: rgba(0, 212, 255, 0.04);
+  --el-color-primary-light-9: rgba(0, 212, 255, 0.02);
+  --el-color-primary-dark-2:   rgba(0, 212, 255, 0.80);
+
+  // ── Element Plus surface/border alias ───────────────────
+  --el-bg-color:           var(--bg-base);
+  --el-bg-color-overlay:   var(--bg-surface);
+  --el-bg-color-page:      var(--bg-base);
+  --el-text-color-primary:   var(--text-primary);
+  --el-text-color-regular:  var(--text-secondary);
+  --el-text-color-secondary: var(--text-muted);
+  --el-text-color-placeholder: var(--text-muted);
+  --el-text-color-disabled:  var(--text-muted);
+  --el-border-color:         var(--border);
+  --el-border-color-light:   var(--border);
+  --el-border-color-lighter:  var(--border-subtle);
+  --el-border-color-extra-light: var(--border-subtle);
+  --el-border-color-dark:   var(--border-bright);
+  --el-fill-color:          var(--bg-base);
+  --el-fill-color-light:    var(--color-accent-dim);
+  --el-fill-color-lighter:  var(--border-subtle);
+  --el-fill-color-blank:    var(--bg-surface);
+  --el-mask-color:          rgba(0, 0, 0, 0.6);
+  --el-overlay-color:       rgba(0, 0, 0, 0.5);
+  --el-overlay-color-light:  rgba(0, 0, 0, 0.2);
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.1);
+  --el-overlay-color-dark:  rgba(0, 0, 0, 0.8);
+  --el-box-shadow:          var(--shadow-base);
+  --el-box-shadow-light:    var(--shadow-sm);
+  --el-box-shadow-lighter:  var(--shadow-sm);
+  --el-box-shadow-dark:     var(--shadow-md);
+
+  // ── Text ─────────────────────────────────────────────────
+  --text-primary:   #dce0e8;
+  --text-secondary: #8892a4;
+  --text-muted:     #5a6272;
+
+  // ── Borders ──────────────────────────────────────────────
+  --border:        rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-accent: var(--color-accent);
+  --border-bright: rgba(255, 255, 255, 0.12);
+
+  // ── Protocol colors ────────────────────────────────────────
+  --protocol-rtsp:     #8b5cf6;
+  --protocol-rtmp:     #f97316;
+  --protocol-gb28181:  #06b6d4;
+  --protocol-onvif:   #22c55e;
+  --protocol-webrtc:   #00D4FF;
+
+  // ── Backgrounds ──────────────────────────────────────────
+  --bg-base:     #06080e;
+  --bg-surface:  #090c12;
+  --bg-elevated: #0e1220;
+  --bg-card:     #0b0f18;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+
+  // ── Status ───────────────────────────────────────────────
+  --status-online:  var(--color-success);
+  --status-offline: #5a6272;
+  --status-warning: var(--color-warning);
+  --status-error:   var(--color-danger);
+
+  // ── Accent aliases ─────────────────────────────────────────
+  --accent-cyan:   #06b6d4;
+  --accent-red:    #ef4444;
+  --accent-purple: #8b5cf6;
+  --accent-yellow: #eab308;
+
+  // ── PTZ ─────────────────────────────────────────────────
+  --ptz-accent:      var(--color-accent);
+  --ptz-accent-dim:  var(--color-accent-dim);
+  --ptz-accent-glow: var(--color-accent-glow);
+  --ptz-surface:     #0e1220;
+  --ptz-border:      rgba(255, 255, 255, 0.07);
+  --ptz-btn-bg:      #161920;
+  --ptz-btn-border:  rgba(255, 255, 255, 0.09);
+  --ptz-text:        #8892a4;
+  --ptz-text-dim:    #3a4055;
+  --ptz-divider:     rgba(255, 255, 255, 0.06);
+
+  // ── Video ───────────────────────────────────────────────
+  --video-bg: #0a0a0a;
+
+  // ── Shadows ─────────────────────────────────────────────
+  --shadow-sm:     0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-base:   0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md:     0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg:     0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-accent: 0 0 0 3px var(--color-accent-glow);
+
+  // ── Skeleton ────────────────────────────────────────────
+  --el-skeleton-color: rgba(255, 255, 255, 0.04);
+  --el-skeleton-to-color: rgba(255, 255, 255, 0.02);
+
+  // ── Autofill override ────────────────────────────────────
+  --el-input-bg-color: var(--bg-surface);
+  --el-input-text-color: var(--text-primary);
+}
+
+// ── Autofill (inside html.dark so bg-surface is resolved) ──────
+html.dark {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  input:-internal-autofill-selected {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background-image: none !important;
+    background-color: #090c12 !important;
+    color: #dce0e8 !important;
+    -webkit-box-shadow: 0 0 0 1000px #090c12 inset !important;
+    -webkit-transition: background-color 5000s ease-in-out 0s !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+  }
+
+  input[type="password"],
+  .el-input input[type="password"] {
+    -webkit-text-security: circle;
+    caret-color: #00D4FF;
+    color: #dce0e8 !important;
+    -webkit-text-fill-color: #dce0e8 !important;
+  }
+}

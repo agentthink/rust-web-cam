@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapper namespace="auth">
+
+    <!-- Users -->
+    <select id="user_select_by_id">
+        SELECT id, username, password_hash, created_at, updated_at
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <select id="user_select_by_username">
+        SELECT id, username, password_hash, created_at, updated_at
+        FROM users
+        WHERE username = #{username}
+    </select>
+
+    <select id="user_select_all">
+        SELECT id, username, password_hash, created_at, updated_at
+        FROM users
+        ORDER BY created_at DESC
+    </select>
+
+    <insert id="user_insert">
+        INSERT INTO users (id, username, password_hash, created_at, updated_at)
+        VALUES (#{id}, #{username}, #{password_hash}, #{created_at}, #{updated_at})
+    </insert>
+
+    <update id="user_update">
+        UPDATE users
+        SET username = #{username}, password_hash = #{password_hash}, updated_at = #{updated_at}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="user_delete">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+    <!-- User Roles -->
+    <select id="user_roles">
+        SELECT r.name
+        FROM roles r
+        INNER JOIN user_roles ur ON r.id = ur.role_id
+        WHERE ur.user_id = #{user_id}
+    </select>
+
+    <delete id="user_roles_delete">
+        DELETE FROM user_roles WHERE user_id = #{user_id}
+    </delete>
+
+    <insert id="user_roles_insert">
+        INSERT INTO user_roles (user_id, role_id)
+        VALUES (#{user_id}, #{role_id})
+    </insert>
+
+    <!-- Roles -->
+    <select id="role_select_by_id">
+        SELECT id, name, description, created_at, updated_at
+        FROM roles
+        WHERE id = #{id}
+    </select>
+
+    <select id="role_select_by_name">
+        SELECT id, name, description, created_at, updated_at
+        FROM roles
+        WHERE name = #{name}
+    </select>
+
+    <select id="role_select_all">
+        SELECT id, name, description, created_at, updated_at
+        FROM roles
+        ORDER BY created_at DESC
+    </select>
+
+    <insert id="role_insert">
+        INSERT INTO roles (id, name, description, created_at, updated_at)
+        VALUES (#{id}, #{name}, #{description}, #{created_at}, #{updated_at})
+    </insert>
+
+    <update id="role_update">
+        UPDATE roles
+        SET name = #{name}, description = #{description}, updated_at = #{updated_at}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="role_delete">
+        DELETE FROM roles WHERE id = #{id}
+    </delete>
+
+    <!-- Role Permissions -->
+    <select id="role_permissions">
+        SELECT p.name
+        FROM permissions p
+        INNER JOIN role_permissions rp ON p.id = rp.permission_id
+        WHERE rp.role_id = #{role_id}
+    </select>
+
+    <delete id="role_permissions_delete">
+        DELETE FROM role_permissions WHERE role_id = #{role_id}
+    </delete>
+
+    <insert id="role_permission_insert">
+        INSERT INTO role_permissions (role_id, permission_id)
+        VALUES (#{role_id}, #{permission_id})
+    </insert>
+
+    <!-- Permissions -->
+    <select id="perm_select_by_id">
+        SELECT id, name, description, created_at
+        FROM permissions
+        WHERE id = #{id}
+    </select>
+
+    <select id="perm_select_by_name">
+        SELECT id, name, description, created_at
+        FROM permissions
+        WHERE name = #{name}
+    </select>
+
+    <select id="perm_select_all">
+        SELECT id, name, description, created_at
+        FROM permissions
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="perm_count">
+        SELECT COUNT(*) as c FROM permissions
+    </select>
+
+    <insert id="perm_insert">
+        INSERT INTO permissions (id, name, description, created_at)
+        VALUES (#{id}, #{name}, #{description}, #{created_at})
+    </insert>
+
+    <update id="perm_update">
+        UPDATE permissions
+        SET name = #{name}, description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="perm_delete">
+        DELETE FROM permissions WHERE id = #{id}
+    </delete>
+
+    <!-- DB existence checks -->
+    <select id="check_db_exists">
+        SELECT 1 FROM pg_database WHERE datname = #{db_name}
+    </select>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recording">
+
+<insert id="recording_insert">
+INSERT INTO recordings (
+    id, device_tag, channel_tag, media_server_name, state, format,
+    output_path, file_size, duration_secs,
+    created_at, started_at, stopped_at,
+    error_message, labels, filename
+) VALUES (
+    #{id}, #{device_tag}, #{channel_tag}, #{media_server_name}, #{state}, #{format},
+    #{output_path}, #{file_size}, #{duration_secs},
+    #{created_at}, #{started_at}, #{stopped_at},
+    #{error_message}, #{labels}, #{filename}
+)
+</insert>
+
+<update id="recording_update">
+UPDATE recordings
+<set>
+<if test="device_tag != null">device_tag = #{device_tag},</if>
+<if test="channel_tag != null">channel_tag = #{channel_tag},</if>
+<if test="media_server_name != null">media_server_name = #{media_server_name},</if>
+<if test="state != null">state = #{state},</if>
+<if test="format != null">format = #{format},</if>
+<if test="output_path != null">output_path = #{output_path},</if>
+<if test="file_size != null">file_size = #{file_size},</if>
+<if test="duration_secs != null">duration_secs = #{duration_secs},</if>
+<if test="started_at != null">started_at = #{started_at},</if>
+<if test="stopped_at != null">stopped_at = #{stopped_at},</if>
+<if test="error_message != null">error_message = #{error_message},</if>
+<if test="labels != null">labels = #{labels},</if>
+<if test="filename != null">filename = #{filename},</if>
+</set>
+WHERE id = #{id}
+</update>
+
+<select id="select_all">
+SELECT id, device_tag, channel_tag, media_server_name, state, format,
+       output_path, file_size, duration_secs,
+       created_at, started_at, stopped_at,
+       error_message, labels, filename
+FROM recordings
+ORDER BY created_at DESC
+</select>
+
+<select id="select_by_id">
+SELECT id, device_tag, channel_tag, media_server_name, state, format,
+       output_path, file_size, duration_secs,
+       created_at, started_at, stopped_at,
+       error_message, labels, filename
+FROM recordings
+WHERE id = #{id}
+</select>
+
+<select id="select_by_device_tag">
+SELECT id, device_tag, channel_tag, media_server_name, state, format,
+       output_path, file_size, duration_secs,
+       created_at, started_at, stopped_at,
+       error_message, labels, filename
+FROM recordings
+WHERE device_tag = #{device_tag}
+ORDER BY created_at DESC
+</select>
+
+<delete id="delete_by_id">
+DELETE FROM recordings WHERE id = #{id}
+</delete>
+
+</mapper>

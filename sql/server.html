@@ -1,0 +1,62 @@
+<mapper>
+<select id="server_select_all">
+SELECT id, name, url, api_key, server_type, weight, enabled, server_tag, protocol_ports, created_at, updated_at
+FROM servers
+ORDER BY id ASC
+</select>
+
+<select id="server_select_by_name">
+SELECT id, name, url, api_key, server_type, weight, enabled, server_tag, protocol_ports, created_at, updated_at
+FROM servers
+WHERE name = #{name}
+</select>
+
+<select id="server_select_by_id">
+SELECT id, name, url, api_key, server_type, weight, enabled, server_tag, protocol_ports, created_at, updated_at
+FROM servers
+WHERE id = #{id}
+</select>
+
+<select id="server_select_by_tag">
+SELECT id, name, url, api_key, server_type, weight, enabled, server_tag, protocol_ports, created_at, updated_at
+FROM servers
+WHERE server_tag = #{server_tag}
+</select>
+
+<insert id="server_insert">
+INSERT INTO servers
+<trim prefix="(" suffix=")" prefixOverrides="">
+<if test="name != null">name</if>
+<if test="url != null">, url</if>
+<if test="api_key != null">, api_key</if>
+<if test="server_type != null">, server_type</if>
+<if test="weight != null">, weight</if>
+<if test="enabled != null">, enabled</if>
+<if test="server_tag != null">, server_tag</if>
+<if test="protocol_ports != null">, protocol_ports</if>
+</trim>
+VALUES
+<trim prefix="(" suffix=")" prefixOverrides="">
+<if test="name != null">#{name}</if>
+<if test="url != null">, #{url}</if>
+<if test="api_key != null">, #{api_key}</if>
+<if test="server_type != null">, #{server_type}</if>
+<if test="weight != null">, #{weight}</if>
+<if test="enabled != null">, #{enabled}</if>
+<if test="server_tag != null">, #{server_tag}</if>
+<if test="protocol_ports != null">, #{protocol_ports}</if>
+</trim>
+</insert>
+
+<update id="server_update">
+UPDATE servers
+SET name = #{name}, url = #{url}, api_key = #{api_key},
+    server_type = #{server_type}, weight = #{weight}, enabled = #{enabled},
+    server_tag = #{server_tag}, protocol_ports = #{protocol_ports}, updated_at = NOW()
+WHERE id = #{id}
+</update>
+
+<delete id="server_delete_by_id">
+DELETE FROM servers WHERE id = #{id}
+</delete>
+</mapper>

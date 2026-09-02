@@ -1,0 +1,59 @@
+<mapper>
+<select id="select_by_id">
+SELECT id, device_tag, channel_tag, media_server_tag, app, token, state, retry_count, max_retries, last_error, viewer_count, bandwidth_in, bandwidth_out, last_keepalive_at, created_at
+FROM streams
+WHERE id = #{id}
+</select>
+
+<select id="select_all">
+SELECT id, device_tag, channel_tag, media_server_tag, app, token, state, retry_count, max_retries, last_error, viewer_count, bandwidth_in, bandwidth_out, last_keepalive_at, created_at
+FROM streams
+ORDER BY created_at DESC
+</select>
+
+<select id="stream_select_active_paginated">
+SELECT id, device_tag, channel_tag, media_server_tag, app, token, state, retry_count, max_retries, last_error, viewer_count, bandwidth_in, bandwidth_out, last_keepalive_at, created_at
+FROM streams
+WHERE state = 'active'
+ORDER BY created_at DESC
+LIMIT #{limit} OFFSET #{offset}
+</select>
+
+<select id="stream_count_active">
+SELECT COUNT(*) FROM streams WHERE state = 'active'
+</select>
+
+<select id="select_by_stream_key">
+SELECT id, device_tag, channel_tag, media_server_tag, app, token, state, retry_count, max_retries, last_error, viewer_count, bandwidth_in, bandwidth_out, last_keepalive_at, created_at
+FROM streams
+WHERE device_tag = #{device_tag} AND channel_tag = #{channel_tag}
+</select>
+
+<select id="select_by_token">
+SELECT id, device_tag, channel_tag, media_server_tag, app, token, state, retry_count, max_retries, last_error, viewer_count, bandwidth_in, bandwidth_out, last_keepalive_at, created_at
+FROM streams
+WHERE token = #{token}
+</select>
+
+<update id="stream_update">
+UPDATE streams
+<set>
+<if test="device_tag != null">device_tag = #{device_tag},</if>
+<if test="channel_tag != null">channel_tag = #{channel_tag},</if>
+<if test="media_server_tag != null">media_server_tag = #{media_server_tag},</if>
+<if test="state != null">state = #{state},</if>
+<if test="retry_count != null">retry_count = #{retry_count},</if>
+<if test="max_retries != null">max_retries = #{max_retries},</if>
+<if test="last_error != null">last_error = #{last_error},</if>
+<if test="viewer_count != null">viewer_count = #{viewer_count},</if>
+<if test="bandwidth_in != null">bandwidth_in = #{bandwidth_in},</if>
+<if test="bandwidth_out != null">bandwidth_out = #{bandwidth_out},</if>
+<if test="last_keepalive_at != null">last_keepalive_at = #{last_keepalive_at},</if>
+</set>
+WHERE id = #{id}
+</update>
+
+<delete id="delete_by_id">
+DELETE FROM streams WHERE id = #{id}
+</delete>
+</mapper>

@@ -1,0 +1,90 @@
+<mapper>
+<select id="channel_select_by_device_tag">
+SELECT id, device_tag, channel_tag, name, status, device_type, device_type_code, channel_extended, is_default, parent_channel_tag, civil_code, address, ip_address, port, manufacturer, model, parental, extended, created_at, updated_at
+FROM channels WHERE device_tag = #{device_tag} ORDER BY created_at
+</select>
+
+<select id="channel_select_by_device_tag_and_channel_tag">
+SELECT id, device_tag, channel_tag, name, status, device_type, device_type_code, channel_extended, is_default, parent_channel_tag, civil_code, address, ip_address, port, manufacturer, model, parental, extended, created_at, updated_at
+FROM channels WHERE device_tag = #{device_tag} AND channel_tag = #{channel_tag}
+</select>
+
+<select id="channel_select_all">
+SELECT id, device_tag, channel_tag, name, status, device_type, device_type_code, channel_extended, is_default, parent_channel_tag, civil_code, address, ip_address, port, manufacturer, model, parental, extended, created_at, updated_at
+FROM channels ORDER BY created_at DESC
+</select>
+
+<insert id="channel_insert">
+INSERT INTO channels
+<trim prefix="(" suffix=")" prefixOverrides=",">
+<if test="device_tag != null">device_tag</if>
+<if test="channel_tag != null">, channel_tag</if>
+<if test="name != null">, name</if>
+<if test="status != null">, status</if>
+<if test="device_type != null">, device_type</if>
+<if test="device_type_code != null">, device_type_code</if>
+<if test="channel_extended != null">, channel_extended</if>
+<if test="is_default != null">, is_default</if>
+<if test="parent_channel_tag != null">, parent_channel_tag</if>
+<if test="civil_code != null">, civil_code</if>
+<if test="address != null">, address</if>
+<if test="ip_address != null">, ip_address</if>
+<if test="port != null">, port</if>
+<if test="manufacturer != null">, manufacturer</if>
+<if test="model != null">, model</if>
+<if test="parental != null">, parental</if>
+<if test="extended != null">, extended</if>
+<if test="created_at != null">, created_at</if>
+<if test="updated_at != null">, updated_at</if>
+</trim>
+VALUES
+<trim prefix="(" suffix=")" prefixOverrides=",">
+<if test="device_tag != null">#{device_tag}</if>
+<if test="channel_tag != null">, #{channel_tag}</if>
+<if test="name != null">, #{name}</if>
+<if test="status != null">, #{status}</if>
+<if test="device_type != null">, #{device_type}</if>
+<if test="device_type_code != null">, #{device_type_code}</if>
+<if test="channel_extended != null">, #{channel_extended}</if>
+<if test="is_default != null">, #{is_default}</if>
+<if test="parent_channel_tag != null">, #{parent_channel_tag}</if>
+<if test="civil_code != null">, #{civil_code}</if>
+<if test="address != null">, #{address}</if>
+<if test="ip_address != null">, #{ip_address}</if>
+<if test="port != null">, #{port}</if>
+<if test="manufacturer != null">, #{manufacturer}</if>
+<if test="model != null">, #{model}</if>
+<if test="parental != null">, #{parental}</if>
+<if test="extended != null">, #{extended}</if>
+<if test="created_at != null">, #{created_at}</if>
+<if test="updated_at != null">, #{updated_at}</if>
+</trim>
+</insert>
+
+<update id="channel_update">
+UPDATE channels
+<set>
+<if test="name != null">name = #{name},</if>
+<if test="status != null">status = #{status},</if>
+<if test="device_type != null">device_type = #{device_type},</if>
+<if test="device_type_code != null">device_type_code = #{device_type_code},</if>
+<if test="channel_extended != null">channel_extended = #{channel_extended},</if>
+<if test="is_default != null">is_default = #{is_default},</if>
+<if test="parent_channel_tag != null">parent_channel_tag = #{parent_channel_tag},</if>
+<if test="civil_code != null">civil_code = #{civil_code},</if>
+<if test="address != null">address = #{address},</if>
+<if test="ip_address != null">ip_address = #{ip_address},</if>
+<if test="port != null">port = #{port},</if>
+<if test="manufacturer != null">manufacturer = #{manufacturer},</if>
+<if test="model != null">model = #{model},</if>
+<if test="parental != null">parental = #{parental},</if>
+<if test="extended != null">extended = #{extended},</if>
+<if test="updated_at != null">updated_at = #{updated_at},</if>
+</set>
+WHERE device_tag = #{device_tag} AND channel_tag = #{channel_tag}
+</update>
+
+<delete id="channel_delete_by_device_tag">
+DELETE FROM channels WHERE device_tag = #{device_tag}
+</delete>
+</mapper>

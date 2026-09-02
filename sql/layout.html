@@ -1,0 +1,42 @@
+<mapper>
+<select id="layout_select_by_id">
+SELECT id, name, rows, cols, layout_json, is_default, created_at, updated_at
+FROM player_window_layouts
+WHERE id = #{id}
+</select>
+
+<select id="layout_select_all">
+SELECT id, name, rows, cols, layout_json, is_default, created_at, updated_at
+FROM player_window_layouts
+ORDER BY created_at DESC
+</select>
+
+<select id="layout_select_default">
+SELECT id, name, rows, cols, layout_json, is_default, created_at, updated_at
+FROM player_window_layouts
+WHERE is_default = true
+LIMIT 1
+</select>
+
+<insert id="layout_insert">
+INSERT INTO player_window_layouts (name, rows, cols, layout_json, is_default)
+VALUES (#{name}, #{rows}, #{cols}, #{layout_json}, #{is_default})
+RETURNING id
+</insert>
+
+<update id="layout_update">
+UPDATE player_window_layouts
+<set>
+<if test="name != null">name = #{name},</if>
+<if test="rows != null">rows = #{rows},</if>
+<if test="cols != null">cols = #{cols},</if>
+<if test="layout_json != null">layout_json = #{layout_json},</if>
+<if test="is_default != null">is_default = #{is_default},</if>
+</set>
+WHERE id = #{id}
+</update>
+
+<update id="layout_set_default">
+UPDATE player_window_layouts SET is_default = false WHERE is_default = true
+</update>
+</mapper>
